@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО "Промсервис и обслуживание" - Промышленное оборудование</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --text: #334155;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .phone {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .phone:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        .hero-media {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .hero-media video, .hero-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--secondary);
+            color: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        .admin-link {
+            color: #475569;
+            font-size: 0.875rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .admin-link:hover {
+            color: var(--accent);
+        }
+
+        /* Modal & Admin Panel */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .admin-dashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f1f5f9;
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .admin-dashboard.active {
+            display: block;
+        }
+
+        .admin-header {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-card h4 {
+            color: var(--text);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .section-stats {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 4000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                display: none;
+            }
+            .header-contacts {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span>⚙️</span> ООО "Промсервис и обслуживание"
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#about">О компании</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-contacts">
+                <a href="tel:+79822741688" class="phone">+7 (982) 274-16-88</a>
+                <button class="btn btn-outline" onclick="openModal('callbackModal')" style="margin-top: 0.5rem; padding: 0.5rem 1rem; font-size: 0.875rem;">Заказать звонок</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>Мировой производитель строительного и промышленного оборудования</h1>
+                <p>Поставляем оборудование от ведущих мировых заводов. Производство максимально автоматизировано, а вся продукция протестирована и сертифицирована в соответствии с законодательством РФ.</p>
+                <a href="#catalog" class="btn">Перейти в каталог</a>
+                <a href="#contacts" class="btn btn-outline" style="margin-left: 1rem;">Связаться с нами</a>
+            </div>
+            <div class="hero-media fade-in">
+                <!-- Имитация видео с постером -->
+                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-factory-worker-welding-metal-parts-4826-large.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="about">
+        <div class="stats-container">
+            <div class="stat-item fade-in">
+                <h3>15+</h3>
+                <p>лет опыта (с 2009 года)</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>80</h3>
+                <p>городов присутствия</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>8000+</h3>
+                <p>клиентов по всей России и СНГ</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>250 000+</h3>
+                <p>проданных единиц оборудования</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>10 000+</h3>
+                <p>м² складских площадей</p>
+            </div>
+            <div class="stat-item fade-in">
+                <h3>4</h3>
+                <p>собственных бренда</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="services">
+        <h2 class="section-title fade-in">Наши преимущества</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🛡️</div>
+                <h3>Уверенность для клиентов</h3>
+                <p>Мы понимаем, что источник нашего успеха — это содействие успеху клиентов. Стремимся, чтобы оборудование работало стабильно и без сбоев.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🚚</div>
+                <h3>Продуманная логистика</h3>
+                <p>Функционирует 6 складов: 5 складов в России и 1 склад в Китае. Поставляем оборудование в кратчайшие сроки.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🔧</div>
+                <h3>Квалифицированный сервис</h3>
+                <p>Предоставляем сервисную поддержку в течение всего срока эксплуатации оборудования. Обучение и грамотная эксплуатация.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🤝</div>
+                <h3>Надежный партнер</h3>
+                <p>На постоянной основе поддерживаем деловые отношения с клиентами. Команда профессионалов делится опытом.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacts">
+        <div class="contact-container fade-in">
+            <h2 class="section-title" style="margin-bottom: 2rem;">Появились вопросы?</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Наша служба поддержки готова проконсультировать вас в выборе оборудования. Оставьте свой номер, и мы свяжемся с вами в ближайшее время.</p>
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" required placeholder="Иван Иванов">
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" required placeholder="+7 (___) ___-__-__" value="+7 ">
+                </div>
+                <div class="form-group">
+                    <label>Сообщение</label>
+                    <textarea rows="4" placeholder="Опишите ваш запрос..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>ООО "Промсервис и обслуживание"</h4>
+                <p>Профессиональное строительное и промышленное оборудование</p>
+                <p style="margin-top: 1rem;">📞 +7 (982) 274-16-88</p>
+                <p>✉️ info@promservice-rf.ru</p>
+            </div>
+            <div class="footer-section">
+                <h4>Разделы</h4>
+                <a href="#catalog">Каталог оборудования</a>
+                <a href="#about">О компании</a>
+                <a href="#services">Сервис и обслуживание</a>
+                <a href="#contacts">Контакты</a>
+            </div>
+            <div class="footer-section">
+                <h4>Клиентам</h4>
+                <a href="#" onclick="openModal('callbackModal')">Заказать звонок</a>
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Дилерская сеть</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ООО "Промсервис и обслуживание". Все права защищены.</p>
+            <span class="admin-link" onclick="openModal('adminLoginModal')">🔒 Вход для администратора</span>
+        </div>
+    </footer>
+
+    <!-- Callback Modal -->
+    <div class="modal" id="callbackModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('callbackModal')">&times;</span>
+            <h3 style="margin-bottom: 1rem;">Заказать звонок</h3>
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" required value="+7 ">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Перезвоните мне</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('adminLoginModal')">&times;</span>
+            <h3 style="margin-bottom: 1rem;">Вход в панель администратора</h3>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Войти</button>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: #64748b;">Подсказка: пароль "admin"</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <div class="admin-header">
+            <h3>📊 Панель управления | ООО "Промсервис и обслуживание"</h3>
+            <button class="btn btn-outline" style="color: white; border-color: white;" onclick="closeAdmin()">Выйти</button>
+        </div>
+        <div class="admin-container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Общие просмотры страниц</h4>
+                    <div class="value" id="totalViews">0</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Оставлено заявок</h4>
+                    <div class="value" id="totalLeads">0</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Последний визит</h4>
+                    <div class="value" style="font-size: 1.25rem;" id="lastVisit">Сейчас</div>
+                </div>
+            </div>
+            
+            <div class="section-stats">
+                <h4 style="margin-bottom: 1.5rem;">Статистика просмотров разделов</h4>
+                <div id="sectionStatsContainer">
+                    <!-- Заполняется через JS -->
+                </div>
+            </div>
+
+            <div class="section-stats" style="margin-top: 2rem;">
+                <h4 style="margin-bottom: 1.5rem;">Последние заявки</h4>
+                <div id="leadsContainer" style="color: #64748b;">
+                    <!-- Заполняется через JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Заявка успешно отправлена! Мы свяжемся с вами.
+    </div>
+
+    <script>
+        // === Инициализация аналитики ===
+        function initAnalytics() {
+            // Увеличиваем общий счетчик просмотров
+            let views = parseInt(localStorage.getItem('pageViews') || '0') + 1;
+            localStorage.setItem('pageViews', views);
+            
+            // Инициализируем статистику разделов, если её нет
+            if (!localStorage.getItem('sectionStats')) {
+                localStorage.setItem('sectionStats', JSON.stringify({
+                    'home': 0,
+                    'about': 0,
+                    'services': 0,
+                    'contacts': 0
+                }));
+            }
+            
+            // Инициализируем заявки
+            if (!localStorage.getItem('leads')) {
+                localStorage.setItem('leads', JSON.stringify([]));
+            }
+        }
+
+        // === Анимация при прокрутке ===
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Трекинг просмотра раздела
+                    const id = entry.target.closest('section')?.id;
+                    if (id) {
+                        let stats = JSON.parse(localStorage.getItem('sectionStats'));
+                        stats[id] = (stats[id] || 0) + 1;
+                        localStorage.setItem('sectionStats', JSON.stringify(stats));
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // === Модальные окна ===
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Закрытие по клику вне модалки
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // === Обработка форм ===
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Сохраняем заявку
+            const leads = JSON.parse(localStorage.getItem('leads'));
+            leads.push({
+                date: new Date().toLocaleString('ru-RU'),
+                name: e.target.querySelector('input[type="text"]').value,
+                phone: e.target.querySelector('input[type="tel"]').value
+            });
+            localStorage.setItem('leads', JSON.stringify(leads));
+            
+            // Показываем уведомление
+            const notif = document.getElementById('notification');
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 3000);
+            
+            // Закрываем модалку и очищаем форму
+            closeModal('callbackModal');
+            e.target.reset();
+        }
+
+        // === Админ панель ===
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === 'admin') {
+                closeModal('adminLoginModal');
+                document.getElementById('adminDashboard').classList.add('active');
+                loadAdminData();
+            } else {
+                alert('Неверный пароль!');
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('adminDashboard').classList.remove('active');
+        }
+
+        function loadAdminData() {
+            // Общие просмотры
+            document.getElementById('totalViews').textContent = localStorage.getItem('pageViews') || '0';
+            
+            // Заявки
+            const leads = JSON.parse(localStorage.getItem('leads'));
+            document.getElementById('totalLeads').textContent = leads.length;
+            
+            // Последние заявки
+            const leadsContainer = document.getElementById('leadsContainer');
+            if (leads.length === 0) {
+                leadsContainer.innerHTML = '<p>Пока нет заявок</p>';
+            } else {
+                leadsContainer.innerHTML = leads.slice(-5).reverse().map(lead => `
+                    <div style="padding: 1rem; border-bottom: 1px solid #e2e8f0;">
+                        <strong>${lead.name}</strong> | ${lead.phone}<br>
+                        <small style="color: #94a3b8;">${lead.date}</small>
+                    </div>
+                `).join('');
+            }
+            
+            // Статистика разделов
+            const stats = JSON.parse(localStorage.getItem('sectionStats'));
+            const maxVal = Math.max(...Object.values(stats), 1);
+            const names = {
+                'home': 'Главная страница',
+                'about': 'О компании (Статистика)',
+                'services': 'Услуги и преимущества',
+                'contacts': 'Контакты и форма'
+            };
+            
+            const statsContainer = document.getElementById('sectionStatsContainer');
+            statsContainer.innerHTML = Object.entries(stats).map(([key, val]) => `
+                <div style="margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                        <span>${names[key] || key}</span>
+                        <span style="font-weight: 600;">${val} просмотров</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${(val / maxVal) * 100}%"></div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('lastVisit').textContent = new Date().toLocaleString('ru-RU');
+        }
+
+        // Запуск аналитики при загрузке
+        initAnalytics();
+    </script>
+</body>
+</html>
